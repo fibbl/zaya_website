@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ——— External libraries ——— -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ——— Meta & Fonts ——— -->
+  <meta charset="UTF-8" />
+  <meta property="og:image" content="og.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zily | AI-Powered User Research</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ——— Custom Design System ——— -->
+  <style>
+    :root{
+      /* muted-purple accent */
+      --accent-start:#8b5cf6;   /* 500 */
+      --accent-end:#6044c7;     /* 600-700 */
+      --accent-deep:#43307c;    /* 900 */
+    }
+    /* type & spacing */
+    body{font-family:'Space Grotesk',sans-serif;}
+    .section{padding:4rem 0;}@media(min-width:640px){.section{padding:6rem 0;}}
+    .gradient-text{background:linear-gradient(90deg,var(--accent-start),var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+    /* diag masks */
+    .clip-diagonal-down::after,.clip-diagonal-up::before{content:"";position:absolute;left:0;width:100%;height:84px;background:inherit;}
+    .clip-diagonal-up::before{top:0;clip-path:polygon(0 100%,100% 0,100% 100%,0 100%);}  
+    .clip-diagonal-down::after{bottom:0;clip-path:polygon(0 0,100% 100%,0 100%,0 0);}  
+
+    /* card foundation */
+    .card-base{background:#111827;border:1px solid rgba(255,255,255,.06);border-radius:1rem;padding:1.5rem;transition:transform .3s,box-shadow .3s;}
+    .card-base:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.35);}  
+
+    .card-step{background:#111827;border-left:4px solid var(--accent-start);}  
+    .card-team{background:rgba(255,255,255,.04);border-left:3px solid var(--accent-start);}  
+    .card-usecase{background:linear-gradient(145deg,#1f2937 0%,#0e1117 100%);}  
+    .card-research{background:#1f2937;border-top:3px solid var(--accent-start);}  
+    .badge{position:absolute;top:-1.1rem;left:1rem;height:2rem;width:2rem;border-radius:9999px;background:var(--accent-start);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;box-shadow:0 4px 12px rgba(139,92,246,.4);}  
+
+    /* orb accents */
+    .orb-light{background:rgba(139,92,246,.35);}  
+    .orb-dark{background:rgba(96,68,199,.35);}  
+
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    .floating-icon{animation:float 6s ease-in-out infinite;}
+  </style>
+</head>
+<body class="bg-black text-white leading-relaxed">
+
+<!-- ===================================================================================== -->
+<!--  HEADER -->
+<!-- ===================================================================================== -->
+<header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md shadow-md flex items-center justify-between px-4 sm:px-6 py-3">
+  <h1 class="text-lg sm:text-xl font-bold">Zily</h1>
+  <button id="navToggle" aria-label="Toggle navigation" class="sm:hidden p-2 rounded-md hover:bg-white/10 focus:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <nav class="hidden sm:flex space-x-6 text-sm text-gray-300">
+    <a href="#product"  class="hover:text-white">Product</a>
+    <a href="#how"      class="hover:text-white">How&nbsp;it&nbsp;Works</a>
+    <a href="#usecases" class="hover:text-white">Use&nbsp;Cases</a>
+    <a href="#demos"    class="hover:text-white">Demos</a>
+    <a href=""  class="hover:text-white font-semibold" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;"onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;">Book&nbsp;Demo</a>
+  </nav>
+</header>
+<nav id="mobileMenu" class="sm:hidden fixed top-[60px] left-0 w-full bg-black/90 backdrop-blur-md py-5 space-y-4 text-center text-base text-gray-300 hidden">
+  <a href="#product"  class="block hover:text-white">Product</a>
+  <a href="#how"      class="block hover:text-white">How it Works</a>
+  <a href="#usecases" class="block hover:text-white">Use Cases</a>
+  <a href="#demos"     class="block hover:text-white">Demos</a>
+  <a href="" class="block hover:text-white font-semibold" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;"onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;">Book Demo</a>
+</nav>
+<div class="h-[60px]"></div>
+
+<!-- ===================================================================================== -->
+<!--  HERO -->
+<!-- ===================================================================================== -->
+<section class="relative min-h-screen flex flex-col justify-center items-center text-center bg-gradient-to-b from-black via-gray-900 to-gray-800 px-4 sm:px-6 section" data-aos="fade-up">
+  <div class="absolute w-80 sm:w-96 h-80 sm:h-96 orb-dark rounded-full -translate-x-1/3 -translate-y-1/3 blur-3xl"></div>
+  <div class="absolute w-56 sm:w-72 h-56 sm:h-72 orb-light rounded-full translate-x-1/2 translate-y-1/3 blur-2xl"></div>
+  <div class="relative z-10 max-w-xl">
+    <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Talk to Your Users.<br><span class="gradient-text">Smarter. Faster. Deeper.</span></h1>
+    <p class="text-base sm:text-lg text-gray-300 mb-6">Zily uses AI to run human-like interviews with real users and delivers insights in hours, not weeks.</p>
+    <button class="bg-[var(--accent-start)] hover:bg-[var(--accent-end)] hover:shadow-[0_0_0_3px_rgba(139,92,246,.3)] px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;">Book a Demo</button>
+    <!-- Calendly link widget begin -->
+ <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<!-- <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;">Book a demo</a> --> 
+<!-- Calendly link widget end -->
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  PROBLEM STATEMENT -->
+<!-- ===================================================================================== -->
+<section class="relative bg-black text-center px-4 sm:px-6 section overflow-hidden" data-aos="fade-up">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 sm:w-96 h-80 sm:h-96 orb-dark rounded-full blur-3xl"></div>
+  <div class="absolute bottom-0 right-0 w-56 sm:w-72 h-56 sm:h-72 orb-light rounded-full blur-2xl"></div>
+  <h2 class="text-3xl sm:text-4xl font-bold mb-6">Why Traditional Research Is Broken</h2>
+  <p class="text-gray-400 max-w-3xl mx-auto text-base sm:text-lg">Focus groups take weeks. Survey tools lack context. Scheduling users is a nightmare. Insights often arrive too late to influence product decisions. Most teams rely on assumptions.</p>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  VISION -->
+<!-- ===================================================================================== -->
+<section class="relative px-4 sm:px-6 section overflow-hidden" data-aos="fade-up">
+  <div class="absolute top-0 left-0 w-44 sm:w-60 h-44 sm:h-60 orb-dark rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+  <div class="absolute bottom-0 right-0 w-72 sm:w-96 h-72 sm:h-96 orb-light rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+  <div class="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold gradient-text mb-6">What if Research Ran Itself?</h2>
+      <p class="text-base sm:text-lg text-gray-300 mb-6">Imagine waking up to GPT-analyzed customer insights. No booking. No follow-up. Just instant, deep understanding.</p>
+      <ul class="space-y-4 text-sm text-gray-400">
+        <li>🌙 <span class="text-gray-200 font-semibold">Overnight Interviews:</span> Async studies that run while you sleep.</li>
+        <li>🧠 <span class="text-gray-200 font-semibold">AI-Led Moderation:</span> Dynamic probing without a script.</li>
+        <li>📬 <span class="text-gray-200 font-semibold">Daily Insight Drops:</span> Themes, quotes, and actions delivered automatically.</li>
+      </ul>
+    </div>
+    <div class="relative flex flex-col items-center justify-center bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl border border-[var(--accent-deep)]/30 shadow-xl p-6 sm:p-8 rounded-3xl">
+      <img class="rounded-xl w-full max-w-[600px] max-h-[350px] object-contain" src="graphic2.png" alt="Zily conducting a human-like interview" />
+      
+    </div>
+    
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  FUTURE HOOK -->
+<!-- ===================================================================================== -->
+<section class="relative bg-black text-center px-4 sm:px-6 section clip-diagonal-down">
+  <h2 class="text-3xl sm:text-5xl font-extrabold mb-6 leading-tight">The Future of Research is <span class="gradient-text animate-pulse">Always-On</span></h2>
+  <p class="text-base sm:text-lg text-gray-300 max-w-xl mx-auto">Zily is your on-demand research assistant — conversational, intelligent, and infinitely scalable.</p>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  HOW Zily WORKS -->
+<!-- ===================================================================================== -->
+<section id="how" class="bg-gray-950 px-4 sm:px-6 section" data-aos="fade-up">
+  <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">How Zily Works</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 max-w-6xl mx-auto">
+    <div class="card-base card-step"><h3 class="font-semibold text-lg mb-2 mt-4">Set Your Objective</h3><p class="text-sm text-gray-400">Define what you want to learn — from churn reasons to feature validation.</p></div>
+    <div class="card-base card-step"></span><h3 class="font-semibold text-lg mb-2 mt-4">Add Participants</h3><p class="text-sm text-gray-400">Upload a CSV or connect your CRM to auto-enroll users.</p></div>
+    <div class="card-base card-step"></span><h3 class="font-semibold text-lg mb-2 mt-4">Automated Interviews</h3><p class="text-sm text-gray-400">Voice or chat interviews run asynchronously using GPT logic.</p></div>
+    <div class="card-base card-step"></span><h3 class="font-semibold text-lg mb-2 mt-4">AI Analysis</h3><p class="text-sm text-gray-400">GPT groups feedback into themes, extracts quotes, flags sentiment.</p></div>
+    <div class="card-base card-step"></span><h3 class="font-semibold text-lg mb-2 mt-4">Insight Reports</h3><p class="text-sm text-gray-400">Share or export concise summaries in hours — not days.</p></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  VOICE DEMO -->
+<!-- ===================================================================================== -->
+<section id="demos" class="bg-black text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-8">AI Voice Interview Demo</h2>
+  <video autoplay muted loop playsinline class="mx-auto rounded-xl w-full max-w-4xl shadow-lg"><source src="https://assets.mixkit.co/videos/preview/mixkit-woman-talking-on-a-video-call-41262-large.mp4" type="video/mp4" /></video>
+  <p class="text-gray-400 mt-4">Zily handles conversations, detects sentiment, and asks follow-ups — just like a human.</p>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  TEXT DEMO -->
+<!-- ===================================================================================== -->
+<section class="bg-gray-950 text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-8">AI Text Interview Demo</h2>
+  <video autoplay muted loop playsinline class="mx-auto rounded-xl w-full max-w-4xl shadow-lg"><source src="https://assets.mixkit.co/videos/preview/mixkit-girl-typing-on-laptop-at-home-30389-large.mp4" type="video/mp4" /></video>
+  <p class="text-gray-400 mt-4">Users chat naturally, and Zily adapts in real-time using prompt-based reasoning.</p>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  DESIGNED FOR EVERY TEAM -->
+<!-- ===================================================================================== -->
+<section id="usecases" class="bg-gray-950 text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-10">Designed for Every Team</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+    <div class="card-base card-team"><h3 class="font-semibold text-lg mb-2">Product Managers</h3><p class="text-sm text-gray-400">Validate roadmaps, understand feature friction, and iterate faster with real-time feedback.</p></div>
+    <div class="card-base card-team"><h3 class="font-semibold text-lg mb-2">UX Researchers</h3><p class="text-sm text-gray-400">Scale qualitative feedback, run continuous discovery, eliminate scheduling chaos.</p></div>
+    <div class="card-base card-team"><h3 class="font-semibold text-lg mb-2">Growth Marketers</h3><p class="text-sm text-gray-400">Reveal drop-off moments, refine messaging, optimize funnels.</p></div>
+    <div class="card-base card-team"><h3 class="font-semibold text-lg mb-2">Founders & Execs</h3><p class="text-sm text-gray-400">Listen directly to customers, validate big bets, drive clarity company-wide.</p></div>
+  </div>
+  <p class="text-gray-400 mt-6 max-w-xl mx-auto">From feature validation to churn analysis — Zily slots right into your workflow.</p>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  REAL-WORLD USE CASES -->
+<!-- ===================================================================================== -->
+<section class="bg-gradient-to-br from-black via-gray-900 to-gray-800 px-4 sm:px-6 section">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold gradient-text mb-4">🧩 Real-World Use Cases</h2>
+    <p class="uppercase text-xs sm:text-sm tracking-widest text-[var(--accent-start)] mb-2">Brand-backed with tangible goals</p>
+    <p class="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-12">From brand perception to concept testing, Zily supports real teams tackling real objectives.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-base card-usecase"><h3 class="font-semibold text-lg mb-2">💎 Jewelry Brand</h3><p class="text-sm text-gray-300">Explores shifting purchase drivers in luxury jewelry.</p></div>
+      <div class="card-base card-usecase"><h3 class="font-semibold text-lg mb-2">🏥 Healthcare Provider</h3><p class="text-sm text-gray-300">Investigates detractor sentiment on a tech-enabled platform.</p></div>
+      <div class="card-base card-usecase"><h3 class="font-semibold text-lg mb-2">👟 Footwear Brand</h3><p class="text-sm text-gray-300">Engages seniors to decode brand perception & competitor share.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  TYPES OF RESEARCH -->
+<!-- ===================================================================================== -->
+<section class="bg-black px-4 sm:px-6 section">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center gradient-text mb-10">📚 Types of Research We Support</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">💡 Concept Testing</h4><p class="text-sm text-gray-400">Gather qualitative & quantitative feedback on new ideas.</p></div>
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">🖥 Landing Page Test</h4><p class="text-sm text-gray-400">See how users navigate and where they stumble.</p></div>
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">🔍 Foundational Research</h4><p class="text-sm text-gray-400">Uncover new market opportunities via open exploration.</p></div>
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">🏷 Brand Perception</h4><p class="text-sm text-gray-400">Understand how customers view you versus competitors.</p></div>
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">🎨 Creative Testing</h4><p class="text-sm text-gray-400">Gauge emotional resonance of messaging & visuals.</p></div>
+      <div class="card-base card-research"><h4 class="text-lg font-semibold mb-2">🧪 Usability Testing</h4><p class="text-sm text-gray-400">Ensure prototypes & UIs are intuitive and delightful.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  COMPARISON -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-10">Zily vs Traditional Research</h2>
+  <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+    <div class="card-base card-usecase bg-gray-900/60"><h3 class="text-2xl font-semibold gradient-text mb-4">Zily</h3><ul class="text-gray-300 space-y-2 text-sm"><li>⚡ Setup in 5 minutes</li><li>🌍 Infinite scale</li><li>📊 Themes, quotes, actions</li></ul></div>
+    <div class="card-base card-usecase bg-gray-800/60"><h3 class="text-2xl font-semibold text-gray-300 mb-4">Traditional</h3><ul class="text-gray-400 space-y-2 text-sm"><li>⏳ 1–2 weeks setup</li><li>🔁 Manual ops & scheduling</li><li>📄 Static PDF reports</li></ul></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  TECH STACK HIGHLIGHTS -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section" data-aos="fade-up">
+  <div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl shadow-xl p-8 sm:p-10 max-w-6xl mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-10 gradient-text">⚙️ Powerful, Scalable, Insightful</h2>
+    <p class="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg mb-10">Zily delivers the sophistication of an in-house research team — fully automated so you can focus on action.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-base"><h3 class="text-xl font-semibold mb-3 gradient-text">GPT Insight Summaries</h3><p class="text-sm text-gray-300">Key takeaways & quote clusters generated instantly — no more slide decks.</p></div>
+      <div class="card-base"><h3 class="text-xl font-semibold mb-3 gradient-text">Conversational AI</h3><p class="text-sm text-gray-300">Dynamic, unscripted interviews that adjust tone, pace, probes in real-time.</p></div>
+      <div class="card-base"><h3 class="text-xl font-semibold mb-3 gradient-text">Auto-Tag & Segment</h3><p class="text-sm text-gray-300">Behaviors and objections classified automatically & ready for dashboards.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  DASHBOARD PREVIEW -->
+<!-- ===================================================================================== -->
+<section class="bg-gray-950 text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-6">Your Research Dashboard</h2>
+  <p class="text-gray-400 max-w-xl mx-auto mb-8">All interviews, themes, quotes, and AI summaries in one sleek, filterable space.</p>
+  <div class="card-base card-usecase p-4 sm:p-6 max-w-5xl mx-auto">
+    <img src="https://dummyimage.com/1200x600/1f1b24/e0e0e0&text=Insight+Dashboard+Preview" alt="Dashboard Preview" class="rounded-xl w-full shadow-2xl" />
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  INTEGRATIONS -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-6">Seamlessly Integrates With</h2>
+  <div class="flex flex-wrap justify-center gap-6 items-center">
+    <div class="card-base p-3 rounded-full bg-gray-800/40"><img src="https://img.icons8.com/color/96/slack-new.png" alt="Slack" class="h-10 w-10" /></div>
+    <div class="card-base p-3 rounded-full bg-gray-800/40"><img src="https://img.icons8.com/color/96/notion.png" alt="Notion" class="h-10 w-10" /></div>
+    <div class="card-base p-3 rounded-full bg-gray-800/40"><img src="https://img.icons8.com/color/96/google-sheets.png" alt="Google Sheets" class="h-10 w-10" /></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  KEY METRICS -->
+<!-- ===================================================================================== -->
+<section class="bg-gray-950 text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-6">Zily by the Numbers</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto text-[var(--accent-start)] text-2xl sm:text-3xl font-bold">
+    <div class="card-base bg-gray-900"><p>+30M</p><p class="text-base text-gray-300 font-normal mt-2">Insights Processed</p></div>
+    <div class="card-base bg-gray-900"><p>92%</p><p class="text-base text-gray-300 font-normal mt-2">Faster Decisions</p></div>
+    <div class="card-base bg-gray-900"><p>24h</p><p class="text-base text-gray-300 font-normal mt-2">Average Turnaround</p></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  TESTIMONIALS -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-4">Trusted Across Industries</h2>
+  <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto mb-8">Fast-growing startups and global enterprises run their research on Zily. Here's why they love it:</p>
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" data-aos="fade-up">
+    <div class="card-base bg-gray-800"><p class="italic">“Zily reduced our churn interviews from weeks to hours.”</p><p class="text-sm text-gray-400 mt-2">VP Growth, Fintech</p></div>
+    <div class="card-base bg-gray-800"><p class="italic">“The AI feels human. Spooky — and super effective.”</p><p class="text-sm text-gray-400 mt-2">PM, SaaS</p></div>
+    <div class="card-base bg-gray-800"><p class="italic">“Finally, real user feedback — without logistics overhead.”</p><p class="text-sm text-gray-400 mt-2">Founder, D2C</p></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  CASE STUDY -->
+<!-- ===================================================================================== -->
+<section class="bg-gray-950 text-center px-4 sm:px-6 section">
+  <div class="card-base card-usecase max-w-4xl mx-auto p-6 sm:p-8 bg-gray-900/50">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-6">Case Study: FintechCo Slashes Churn</h2>
+    <p class="text-gray-400 max-w-3xl mx-auto mb-8">Within two weeks, FintechCo uncovered why 28% of users dropped during onboarding — then shipped a new flow that reduced churn by 18%.</p>
+    <img src="https://dummyimage.com/1200x600/202020/ffffff&text=Case+Study+Preview" alt="Case Study Preview" class="rounded-xl w-full shadow-2xl" />
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  SECURITY -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section">
+  <div class="card-base max-w-4xl mx-auto p-6 sm:p-8 bg-black/60 border border-white/5">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-6">Enterprise-Grade Security</h2>
+    <p class="text-gray-400 max-w-xl mx-auto mb-8">We meet or exceed global standards like GDPR, SOC 2, and ISO-27001. Data encryption, SSO, role-based access—baked in.</p>
+    <div class="flex flex-wrap justify-center gap-10 mt-4"><img src="https://img.icons8.com/ios-filled/100/ffffff/gdpr.png" class="h-10" alt="GDPR" /><img src="https://img.icons8.com/ios-filled/100/ffffff/privacy-policy.png" class="h-10" alt="Privacy" /><img src="https://img.icons8.com/ios-filled/100/ffffff/shield.png" class="h-10" alt="Shield" /></div>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  FAQ -->
+<!-- ===================================================================================== -->
+<section class="bg-gray-950 px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+  <div class="max-w-3xl mx-auto space-y-5 text-gray-300">
+    <details class="card-base bg-gray-900"><summary class="cursor-pointer font-semibold">How long does a study take to set up?</summary><p class="mt-2">Roughly 5–10 minutes: pick an objective, load contacts, press Launch.</p></details>
+    <details class="card-base bg-gray-900"><summary class="cursor-pointer font-semibold">Will participants know they’re talking to an AI?</summary><p class="mt-2">Yes — Zily always introduces itself transparently.</p></details>
+    <details class="card-base bg-gray-900"><summary class="cursor-pointer font-semibold">Can I export insights?</summary><p class="mt-2">Absolutely. Push to Slack, Notion, Sheets or download CSV & PDF.</p></details>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  ABOUT -->
+<!-- ===================================================================================== -->
+<section class="bg-black text-center px-4 sm:px-6 section">
+  <div class="card-base bg-gray-900/40 max-w-4xl mx-auto p-6 sm:p-8">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4">About Zily</h2>
+    <p class="text-gray-400 max-w-2xl mx-auto">Founded by researchers, designers, and engineers, Zily’s mission is to make deep user insight effortless and ubiquitous.</p>
+  </div>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  FINAL CTA -->
+<!-- ===================================================================================== -->
+<section id="contact" class="bg-gradient-to-r from-[var(--accent-start)] to-[var(--accent-end)] text-center px-4 sm:px-6 section">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-gray-100">Ready to Talk to Your Users at Scale?</h2>
+  <p class="text-lg sm:text-xl text-gray-200 mb-6 max-w-xl mx-auto">Automate the grunt work and focus on building. No coordination. No analysis paralysis. Just clarity.</p>
+  <button class="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-200 transition" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/anurag-zilyai/30min?hide_gdpr_banner=1&primary_color=783acb'});return false;">Book a Demo</button>
+</section>
+
+<!-- ===================================================================================== -->
+<!--  FOOTER -->
+<!-- ===================================================================================== -->
+<footer class="bg-gradient-to-b from-black via-gray-900 toquint;text-gray-400 py-14 px-4 sm:px-6 border-t border-gray-800">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-sm">
+    <div><h4 class="text-gray-100 font-bold mb-2">Product</h4><ul class="space-y-1"><li><a href="#" class="hover:underline">Features</a></li><li><a href="#" class="hover:underline">How it Works</a></li><li><a href="#" class="hover:underline">Integrations</a></li></ul></div>
+    <div><h4 class="text-gray-100 font-bold mb-2">Company</h4><ul class="space-y-1"><li><a href="#" class="hover:underline">About</a></li><li><a href="#" class="hover:underline">Careers</a></li><li><a href="#" class="hover:underline">Contact</a></li></ul></div>
+    <div><h4 class="text-gray-100 font-bold mb-2">Legal</h4><ul class="space-y-1"><li><a href="#" class="hover:underline">Privacy Policy</a></li><li><a href="#" class="hover:underline">Terms of Service</a></li></ul></div>
+    <div><h4 class="text-gray-100 font-bold mb-2">Follow Us</h4><div class="flex space-x-4"><a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/twitter.png" alt="Twitter" /></a><a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/linkedin.png" alt="LinkedIn" /></a><a href="https://www.linkedin.com/company/zily/"><img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram" /></a></div></div>
+  </div>
+  <div class="text-center mt-12 text-xs text-gray-600">© 2025 Zily Research · Crafted with ✨ by product thinkers</div>
+</footer>
+
+<!-- ======================================================================================= -->
+<!--  SCRIPTS -->
+<!-- ==================================================================================== -->
+<script>
+  AOS.init({duration:1000,once:true});
+  document.getElementById('navToggle').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('hidden'));
+</script>
+</body>
+</html>
